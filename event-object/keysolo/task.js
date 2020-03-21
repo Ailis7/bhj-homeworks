@@ -17,6 +17,48 @@ class Game {
   }
 
   registerEvents() {
+    // подружил с вводом на разных языках\раскладках, и таймер.
+    // но вот 2 и 3е задание если полностью делать, то для меня пока круче диплома... времени не хватает XD
+
+    let interval;
+
+    let timeFunck = () => {
+      let timerCount = document.querySelector(".timer");
+      let currentWord = document.querySelectorAll("div.word span")
+      timerCount.textContent = currentWord.length;
+
+      interval = setInterval(() => {
+        if (timerCount.textContent == 0) {
+          this.fail();
+          currentWord = document.querySelectorAll("div.word span")
+          timerCount.textContent = currentWord.length + 1;
+        }
+        --timerCount.textContent;
+      }, 3000)
+    }
+
+    timeFunck();
+
+    let showKey = (event) => {
+      let keySymbol = "Key" + this.currentSymbol.textContent.toUpperCase(); // по сути универсальное приведение к event.code
+      if (keySymbol == event.code) {
+        if (this.currentSymbol.nextElementSibling == null) {
+          clearInterval(interval);
+          timeFunck();
+          this.success();
+          return;
+        }
+        this.success();
+        
+      } else {
+        this.fail();
+        clearInterval(interval);
+        timeFunck();
+      }
+    }
+
+    document.addEventListener( 'keypress', showKey );
+
     /*
       TODO:
       Написать обработчик события, который откликается
@@ -88,3 +130,6 @@ class Game {
 
 new Game(document.getElementById('game'))
 
+a = "аф";
+console.log(a.charCodeAt(0))
+console.log(String.fromCharCode(1072))
