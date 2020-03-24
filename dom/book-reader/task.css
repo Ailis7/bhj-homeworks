@@ -10,6 +10,11 @@ body {
   font-size: 12px;
 }
 
+.color_gray_text {
+  color: gray;
+  background-color: gray;
+}
+
 .book_color-gray {
   color: gray;
 }
@@ -52,20 +57,21 @@ body {
   box-sizing: border-box;
 }
 
+.color_whitesmoke {
+  color: white;
+  background: whitesmoke;
+}
+
+.color_white {
+  background: white;
+}
+
 .color_black {
   background: #000;
 }
 
 .color_gray {
   background: grey;
-}
-
-.color_whitesmoke {
-  background: whitesmoke;
-}
-
-.color_white {
-  background: white;
 }
 
 .color_active {
