@@ -1,4 +1,6 @@
 let divBook = document.querySelector("div.book");
+let text = document.querySelector(".book__control_color");
+let background = document.querySelector(".book__control_background");
 
 let fontChange = event => {
     let target = event.target;
@@ -24,14 +26,23 @@ let fontChange = event => {
         parentControl.querySelector(".color_active").classList.remove("color_active");
         target.classList.add("color_active");
 
-        if (target.dataset.color !== undefined) {
-            divBook.classList.remove("font-size_small");
-            divBook.classList.remove("font-size_big");
-            divBook.classList.add(target.classList[1]);           
+        divBook.classList.remove("color_gray");
+        divBook.classList.remove("color_gray");
+        divBook.classList.remove("color_black");
+        divBook.classList.remove("color_whitesmoke");
+
+        if (parentControl === text) {
+            if (target.dataset.color !== undefined) divBook.classList.add(target.classList[1]);
+            let bro = background.querySelector(".color_active");
+            if (target === bro) return;
+            if (bro.dataset.color !== undefined) divBook.classList.add(bro.classList[1]);
         } else {
-            divBook.classList.remove("font-size_small");
-            divBook.classList.remove("font-size_big");
+            if (target.dataset.color !== undefined) divBook.classList.add(target.classList[1]);
+            let bro = text.querySelector(".color_active");
+            if (target === bro) return;
+            if (bro.dataset.color !== undefined) divBook.classList.add(bro.classList[1]);
         }
+        
     }
 }
 
