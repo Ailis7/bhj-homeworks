@@ -3,14 +3,18 @@ let buttonTask = document.querySelector(".tasks__add");
 let taskList = document.querySelector(".tasks__list");
 
 let elements = JSON.parse(localStorage.getItem(`todoList`));
-elements.forEach(elem => {
-    taskList.insertAdjacentHTML(`beforeEnd`, `<div class="task">
+
+if (elements === null) { // проверка для Мозилы XD
+} else {
+    elements.forEach(elem => {
+        taskList.insertAdjacentHTML(`beforeEnd`, `<div class="task">
     <div class="task__title">
       ${elem}
     </div>
     <a href="#" class="task__remove">&times;</a>
   </div>`);
-});
+    });
+}
 
 let taskManager = event => {
     let target = event.target;
