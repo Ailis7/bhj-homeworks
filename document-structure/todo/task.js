@@ -2,29 +2,29 @@ let taskInput = document.querySelector(".tasks__input");
 let buttonTask = document.querySelector(".tasks__add");
 let taskList = document.querySelector(".tasks__list");
 
-
-let keys = Object.keys(localStorage);
-for (let key of keys) {
+let elements = JSON.parse(localStorage.getItem(`todoList`));
+elements.forEach(elem => {
     taskList.insertAdjacentHTML(`beforeEnd`, `<div class="task">
     <div class="task__title">
-      ${localStorage.getItem(key)}
+      ${elem}
     </div>
     <a href="#" class="task__remove">&times;</a>
   </div>`);
-}
-console.log(localStorage);
+});
 
 let taskManager = event => {
     let target = event.target;
 
     if (event.code === "Enter" || target === buttonTask) {
+        let task = taskInput.value;
+        if (task === "") return alert("Нужно ввести что-нибудь!");
         event.preventDefault();
         let tasker = document.createElement('div');
         tasker.classList.add("task");
 
         let taskTitle = document.createElement('div');
         taskTitle.classList.add("task__title");
-        taskTitle.textContent = taskInput.value;
+        taskTitle.textContent = task;
 
         let remover = document.createElement('a');
         remover.href = "#";
@@ -36,11 +36,14 @@ let taskManager = event => {
         tasker.insertAdjacentElement("beforeEnd", remover);
         taskList.insertAdjacentElement("beforeEnd", tasker);
 
-
-        localStorage.setItem(taskInput.value, taskInput.value);
-        console.log(localStorage);
+        try {
+            let localArr = JSON.parse(localStorage.getItem(`todoList`));
+            localArr.push(task);
+            localStorage.todoList = JSON.stringify(localArr);
+        } catch (err) {
+            localStorage.setItem(`todoList`, JSON.stringify([task]));
+        }
         taskInput.value = "";
-        console.log(event.code)
     }
 }
 
@@ -48,7 +51,9 @@ let removerTask = event => {
     let target = event.target;
     if (target.classList.contains("task__remove")) {
         let text = target.previousElementSibling.textContent.trim().toString();
-        localStorage.removeItem(text);        
+        let indexRemove = elements.indexOf(text);
+        elements.splice(indexRemove, 1);
+        localStorage.todoList = JSON.stringify(elements)
         target.parentElement.remove();
     }
 }
