@@ -4,8 +4,7 @@ let taskList = document.querySelector(".tasks__list");
 
 let elements = JSON.parse(localStorage.getItem(`todoList`));
 
-if (elements === null) { // проверка для Мозилы XD
-} else {
+if (!!elements) {
     elements.forEach(elem => {
         taskList.insertAdjacentHTML(`beforeEnd`, `<div class="task">
     <div class="task__title">
